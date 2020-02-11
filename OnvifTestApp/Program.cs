@@ -10,9 +10,11 @@ namespace OnvifTestApp
 {
     class Program
     {
+        static UsernameTokenGenerator Generator = new UsernameTokenGenerator("admin", "Dwapiatka25");
+
         static void Main(string[] args)
         {
-            XMLProbeMatchChecker();
+            SetDateAndTime();
         }
 
         static void XMLProbeMatchChecker()
@@ -44,6 +46,11 @@ namespace OnvifTestApp
             Debug.WriteLine(passwordDigest + " " + nonce);
             Debug.WriteLine(passwordDigestGenerated);
             //89WVi717ArqeJqxZgHpPBXkUEdc= bkjy4daHn1uN8G04aqBSQLxG2MtBQtQb 2020-02-10T11:09:26.249Z admin
+        }
+
+        static void SetDateAndTime()
+        {
+            Debug.WriteLine(new SetDateAndTime(Generator).ToXML());
         }
     }
 }

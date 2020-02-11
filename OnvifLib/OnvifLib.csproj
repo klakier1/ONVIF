@@ -49,6 +49,7 @@
     <Compile Include="GetNetworkInterface.cs" />
     <Compile Include="GetScopes.cs" />
     <Compile Include="GetServices.cs" />
+    <Compile Include="SetDateAndTIme.cs" />
     <Compile Include="GetTemp.cs" />
     <Compile Include="NameSpaces.cs" />
     <Compile Include="ProbeTask.cs" />
