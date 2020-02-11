@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.902
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnvifConnect", "OnvifConnect\OnvifConnect.csproj", "{6CB84D1A-04F0-4D8A-B701-C1F5090F186B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnvifLib", "OnvifLib\OnvifLib.csproj", "{0EE2D17D-0AF3-4878-A49B-2E6E53D2F4AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnvifTestApp", "OnvifTestApp\OnvifTestApp.csproj", "{066FD607-2C88-43B3-A92F-3E1F4EEA4E2E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6CB84D1A-04F0-4D8A-B701-C1F5090F186B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CB84D1A-04F0-4D8A-B701-C1F5090F186B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CB84D1A-04F0-4D8A-B701-C1F5090F186B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CB84D1A-04F0-4D8A-B701-C1F5090F186B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EE2D17D-0AF3-4878-A49B-2E6E53D2F4AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EE2D17D-0AF3-4878-A49B-2E6E53D2F4AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EE2D17D-0AF3-4878-A49B-2E6E53D2F4AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EE2D17D-0AF3-4878-A49B-2E6E53D2F4AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{066FD607-2C88-43B3-A92F-3E1F4EEA4E2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{066FD607-2C88-43B3-A92F-3E1F4EEA4E2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{066FD607-2C88-43B3-A92F-3E1F4EEA4E2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{066FD607-2C88-43B3-A92F-3E1F4EEA4E2E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0089E4FC-0912-4030-8202-7C48A76CF3B6}
+	EndGlobalSection
+EndGlobal
