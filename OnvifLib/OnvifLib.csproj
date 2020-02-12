@@ -59,8 +59,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsernameTokenGenerator.cs" />
     <Compile Include="XMLDateTimeParser.cs" />
-    <Compile Include="XMLPullMessagesResponseParse.cs" />
-    <Compile Include="XMLGetCapabilitiesResponseParse.cs" />
+    <Compile Include="XMLPullMessagesResponseParser.cs" />
+    <Compile Include="XMLGetCapabilitiesResponseParser.cs" />
     <Compile Include="XMLProbeMatchParser.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

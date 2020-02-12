@@ -12,7 +12,7 @@ namespace OnvifLib.Test
         [TestMethod]
         public void XMLGetCapabilitiesResponse_TestXML_returnMoreThenZeroElements()
         {
-            var parser = new XMLGetCapabilitiesResponseParse();
+            var parser = new XMLGetCapabilitiesResponseParser();
 
             var list = parser.Parse(parser.TestString);
 
@@ -33,12 +33,12 @@ namespace OnvifLib.Test
             Assert.IsNotNull(xml);
         }
 
-        [DataRow(XMLPullMessagesResponseParse.TestString, "1")]
+        [DataRow(XMLPullMessagesResponseParser.TestString, "1")]
         //[DataRow(XMLPullMessagesResponseParse.TestString2, 3)]
         [DataTestMethod]
         public void XMLPullMessagesResponseParse_TestData_returnMoreThenZeroElements(string xml, string result)
         {
-            var parser = new XMLGetCapabilitiesResponseParse();
+            var parser = new XMLPullMessagesResponseParser();
 
             var obj = parser.Parse(xml);
 
