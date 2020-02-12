@@ -19,7 +19,7 @@ namespace OnvifTestApp
 
         static void XMLProbeMatchChecker()
         {
-            new XMLProbeMatchParser().Parse(XMLProbeMatchParser._temp);
+            new XMLProbeMatchParser().Parse(XMLProbeMatchParser.TestString);
         }
 
         static void TokenChecker()

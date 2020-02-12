@@ -1,0 +1,45 @@
+<s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:a="http://www.w3.org/2005/08/addressing"><s:Header><a:Action s:mustUnderstand="1">http://www.onvif.org/ver10/events/wsdl/PullPointSubscription/PullMessagesRequest</a:Action><a:MessageID>urn:uuid:58dc9540-46ef-41ee-b9d5-abb9d4714e9a</a:MessageID><a:ReplyTo><a:Address>http://www.w3.org/2005/08/addressing/anonymous</a:Address></a:ReplyTo><Security s:mustUnderstand="1" xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"><UsernameToken><Username>admin</Username><Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordDigest">DVNo6OwJDFkJn7tRBx5d8Wzsyj4=</Password><Nonce EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">ISiuob33W8I9il43AQmhPxs00e6VwIOp</Nonce><Created xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">2020-02-12T09:54:20.264Z</Created></UsernameToken></Security><a:To s:mustUnderstand="1">http://192.168.2.124/onvif/Events/Subscription?index=0</a:To></s:Header><s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><PullMessages xmlns="http://www.onvif.org/ver10/events/wsdl"><Timeout>PT1M</Timeout><MessageLimit>1024</MessageLimit></PullMessages></s:Body></s:Envelope>
+
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://www.w3.org/2003/05/soap-envelope" xmlns:SOAP-ENC="http://www.w3.org/2003/05/soap-encoding" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsdd="http://schemas.xmlsoap.org/ws/2005/04/discovery" xmlns:chan="http://schemas.microsoft.com/ws/2005/02/duplex" xmlns:wsa5="http://www.w3.org/2005/08/addressing" xmlns:xmime="http://tempuri.org/xmime.xsd" xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:wsrfbf="http://docs.oasis-open.org/wsrf/bf-2" xmlns:wstop="http://docs.oasis-open.org/wsn/t-1" xmlns:tt="http://www.onvif.org/ver10/schema" xmlns:ns3="http://www.onvif.org/ver10/pacs" xmlns:wsrfr="http://docs.oasis-open.org/wsrf/r-2" xmlns:ns1="http://www.onvif.org/ver10/actionengine/wsdl" xmlns:ns2="http://www.onvif.org/ver10/accesscontrol/wsdl" xmlns:ns4="http://www.onvif.org/ver10/doorcontrol/wsdl" xmlns:tad="http://www.onvif.org/ver10/analyticsdevice/wsdl" xmlns:daae="http://www.onvif.org/ver20/analytics/wsdl/AnalyticsEngineBinding" xmlns:dare="http://www.onvif.org/ver20/analytics/wsdl/RuleEngineBinding" xmlns:tan="http://www.onvif.org/ver20/analytics/wsdl" xmlns:dn="http://www.onvif.org/ver10/network/wsdl" xmlns:ter="http://www.onvif.org/ver10/error" xmlns:tds="http://www.onvif.org/ver10/device/wsdl" xmlns:tev="http://www.onvif.org/ver10/events/wsdl" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:timg="http://www.onvif.org/ver20/imaging/wsdl" xmlns:tls="http://www.onvif.org/ver10/display/wsdl" xmlns:tmd="http://www.onvif.org/ver10/deviceIO/wsdl" xmlns:tptz="http://www.onvif.org/ver20/ptz/wsdl" xmlns:trc="http://www.onvif.org/ver10/recording/wsdl" xmlns:trp="http://www.onvif.org/ver10/replay/wsdl" xmlns:trt="http://www.onvif.org/ver10/media/wsdl" xmlns:trv="http://www.onvif.org/ver10/receiver/wsdl" xmlns:tse="http://www.onvif.org/ver10/search/wsdl" xmlns:tns1="http://www.onvif.org/ver10/topics" xmlns:tnshik="http://www.hikvision.com/2011/event/topics" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"><SOAP-ENV:Header><wsa:MessageID>urn:uuid:20a1de7b-1ef4-4d03-b964-f9640a3761a5</wsa:MessageID>
+<wsa5:ReplyTo SOAP-ENV:mustUnderstand="true"><wsa5:Address>http://www.w3.org/2005/08/addressing/anonymous</wsa5:Address>
+</wsa5:ReplyTo>
+<wsa5:Action SOAP-ENV:mustUnderstand="true">http://www.onvif.org/ver10/events/wsdl/PullPointSubscription/PullMessagesResponse</wsa5:Action>
+</SOAP-ENV:Header>
+<SOAP-ENV:Body><tev:PullMessagesResponse><tev:CurrentTime>2012-01-01T00:01:05Z</tev:CurrentTime>
+<tev:TerminationTime>2012-01-01T16:41:05Z</tev:TerminationTime>
+<wsnt:NotificationMessage><wsnt:Topic Dialect="http://www.onvif.org/ver10/tev/topicExpression/ConcreteSet">tns1:RuleEngine/CellMotionDetector/Motion</wsnt:Topic>
+<wsnt:Message><tt:Message PropertyOperation="Changed" UtcTime="2012-01-01T00:01:06Z"><tt:Source><tt:SimpleItem Name="VideoSourceConfigurationToken" Value="VideoStream_Config_Token"></tt:SimpleItem>
+<tt:SimpleItem Name="VideoAnalyticsConfigurationToken" Value="VideoStream_Config_Token"></tt:SimpleItem>
+<tt:SimpleItem Name="Rule" Value="VideoStream_Config_Token"></tt:SimpleItem>
+</tt:Source>
+<tt:Data><tt:SimpleItem Name="IsMotion" Value="true"></tt:SimpleItem>
+</tt:Data>
+</tt:Message>
+</wsnt:Message>
+</wsnt:NotificationMessage>
+</tev:PullMessagesResponse>
+</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://www.w3.org/2003/05/soap-envelope" xmlns:SOAP-ENC="http://www.w3.org/2003/05/soap-encoding" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsdd="http://schemas.xmlsoap.org/ws/2005/04/discovery" xmlns:chan="http://schemas.microsoft.com/ws/2005/02/duplex" xmlns:wsa5="http://www.w3.org/2005/08/addressing" xmlns:xmime="http://tempuri.org/xmime.xsd" xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:wsrfbf="http://docs.oasis-open.org/wsrf/bf-2" xmlns:wstop="http://docs.oasis-open.org/wsn/t-1" xmlns:tt="http://www.onvif.org/ver10/schema" xmlns:ns3="http://www.onvif.org/ver10/pacs" xmlns:wsrfr="http://docs.oasis-open.org/wsrf/r-2" xmlns:ns1="http://www.onvif.org/ver10/actionengine/wsdl" xmlns:ns2="http://www.onvif.org/ver10/accesscontrol/wsdl" xmlns:ns4="http://www.onvif.org/ver10/doorcontrol/wsdl" xmlns:tad="http://www.onvif.org/ver10/analyticsdevice/wsdl" xmlns:daae="http://www.onvif.org/ver20/analytics/wsdl/AnalyticsEngineBinding" xmlns:dare="http://www.onvif.org/ver20/analytics/wsdl/RuleEngineBinding" xmlns:tan="http://www.onvif.org/ver20/analytics/wsdl" xmlns:dn="http://www.onvif.org/ver10/network/wsdl" xmlns:ter="http://www.onvif.org/ver10/error" xmlns:tds="http://www.onvif.org/ver10/device/wsdl" xmlns:tev="http://www.onvif.org/ver10/events/wsdl" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:timg="http://www.onvif.org/ver20/imaging/wsdl" xmlns:tls="http://www.onvif.org/ver10/display/wsdl" xmlns:tmd="http://www.onvif.org/ver10/deviceIO/wsdl" xmlns:tptz="http://www.onvif.org/ver20/ptz/wsdl" xmlns:trc="http://www.onvif.org/ver10/recording/wsdl" xmlns:trp="http://www.onvif.org/ver10/replay/wsdl" xmlns:trt="http://www.onvif.org/ver10/media/wsdl" xmlns:trv="http://www.onvif.org/ver10/receiver/wsdl" xmlns:tse="http://www.onvif.org/ver10/search/wsdl" xmlns:tns1="http://www.onvif.org/ver10/topics" xmlns:tnshik="http://www.hikvision.com/2011/event/topics" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"><SOAP-ENV:Header><wsa:MessageID>urn:uuid:ad4b41f3-2b92-4b48-959f-c08be16657dd</wsa:MessageID>
+<wsa5:ReplyTo SOAP-ENV:mustUnderstand="true"><wsa5:Address>http://www.w3.org/2005/08/addressing/anonymous</wsa5:Address>
+</wsa5:ReplyTo>
+<wsa5:Action SOAP-ENV:mustUnderstand="true">http://www.onvif.org/ver10/events/wsdl/PullPointSubscription/PullMessagesResponse</wsa5:Action>
+</SOAP-ENV:Header>
+<SOAP-ENV:Body><tev:PullMessagesResponse><tev:CurrentTime>2012-01-01T00:01:06Z</tev:CurrentTime>
+<tev:TerminationTime>2012-01-01T16:41:06Z</tev:TerminationTime>
+<wsnt:NotificationMessage><wsnt:Topic Dialect="http://www.onvif.org/ver10/tev/topicExpression/ConcreteSet">tns1:VideoSource/MotionAlarm</wsnt:Topic>
+<wsnt:Message><tt:Message PropertyOperation="Changed" UtcTime="2012-01-01T00:01:06Z"><tt:Source><tt:SimpleItem Name="Source" Value="VideoStream_Config_Token"></tt:SimpleItem>
+</tt:Source>
+<tt:Data><tt:SimpleItem Name="State" Value="false"></tt:SimpleItem>
+</tt:Data>
+</tt:Message>
+</wsnt:Message>
+</wsnt:NotificationMessage>
+</tev:PullMessagesResponse>
+</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+
+

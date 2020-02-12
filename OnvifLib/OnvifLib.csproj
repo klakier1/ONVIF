@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\PullMessageResponse.cs" />
+    <Compile Include="PullMessageRequest.cs" />
     <Compile Include="CreateSubscription.cs" />
     <Compile Include="GetCapabilities.cs" />
     <Compile Include="GetDateAndTime.cs" />
@@ -57,6 +59,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsernameTokenGenerator.cs" />
     <Compile Include="XMLDateTimeParser.cs" />
+    <Compile Include="XMLPullMessagesResponseParse.cs" />
+    <Compile Include="XMLGetCapabilitiesResponseParse.cs" />
     <Compile Include="XMLProbeMatchParser.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
