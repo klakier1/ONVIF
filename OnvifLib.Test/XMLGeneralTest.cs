@@ -7,7 +7,7 @@ using OnvifLib;
 namespace OnvifLib.Test
 {
     [TestClass]
-    public class XMLGetCapabilitiesResponseParseTest
+    public class XMLGeneralTest
     {
         [TestMethod]
         public void XMLGetCapabilitiesResponse_TestXML_returnMoreThenZeroElements()
@@ -26,23 +26,34 @@ namespace OnvifLib.Test
             var address = "http://192.168.2.124/onvif/Events/Subscription?index=0";
 
             var request = new PullMessageRequest(generator, address);
-            var xml =  request.ToXML();
+            var xml = request.ToXML();
 
             Debug.WriteLine(xml);
 
             Assert.IsNotNull(xml);
         }
 
-        [DataRow(XMLPullMessagesResponseParser.TestString, "1")]
-        //[DataRow(XMLPullMessagesResponseParse.TestString2, 3)]
+        [DataRow(XMLPullMessagesResponseParser.TestString1, 3)]
+        [DataRow(XMLPullMessagesResponseParser.TestString2, 1)]
+        [DataRow(XMLPullMessagesResponseParser.TestString3, 1)]
+        [DataRow(XMLPullMessagesResponseParser.TestString4, 0)]
         [DataTestMethod]
-        public void XMLPullMessagesResponseParse_TestData_returnMoreThenZeroElements(string xml, string result)
+        public void XMLPullMessagesResponseParse_TestData_returnMoreThenZeroElements(string xml, int expected)
         {
             var parser = new XMLPullMessagesResponseParser();
+            var actual = -1;
 
             var obj = parser.Parse(xml);
+            if (obj.Body.PullMessagesResponse.NotificationMessage != null)
+            {
+                actual = obj.Body.PullMessagesResponse.NotificationMessage.Message2.Message.Source.SimpleItem.Count;
+            }
+            else
+            {
+                actual = 0;
+            }
 
-            Assert.AreEqual("1", result);
+            Assert.AreEqual(expected, actual);
         }
     }
 }

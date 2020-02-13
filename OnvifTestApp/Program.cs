@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace OnvifTestApp
 {
@@ -14,7 +16,7 @@ namespace OnvifTestApp
 
         static void Main(string[] args)
         {
-            SetDateAndTime();
+            SerializeXMLtest();
         }
 
         static void XMLProbeMatchChecker()
@@ -51,6 +53,41 @@ namespace OnvifTestApp
         static void SetDateAndTime()
         {
             Debug.WriteLine(new SetDateAndTime(Generator).ToXML());
+        }
+
+        static void SerializeXMLtest()
+        {
+           
+            OnvifLib.Models.PullMessageResponse.Envelope obj = new OnvifLib.Models.PullMessageResponse.Envelope()
+            {
+                Body = new OnvifLib.Models.PullMessageResponse.Body()
+                {
+                    PullMessagesResponse = new OnvifLib.Models.PullMessageResponse.PullMessagesResponse()
+                    {
+                        CurrentTime = "test",
+                        NotificationMessage = new OnvifLib.Models.PullMessageResponse.NotificationMessage()
+                        {
+                            Topic = new OnvifLib.Models.PullMessageResponse.Topic()
+                            {
+                                Text = "kutas",
+                                Dialect = "takiCHuj"
+                               
+                            }
+                        }
+                        
+                    }
+                }
+            };
+            string result;
+            using (TextWriter textWriter = new StringWriter()) {
+                new XmlSerializer(typeof(OnvifLib.Models.PullMessageResponse.Envelope)).Serialize(textWriter, obj);
+                result = textWriter.ToString();
+            }
+            Console.WriteLine(result);
+
+            Console.ReadKey();
+
+            return;
         }
     }
 }

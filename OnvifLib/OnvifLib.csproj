@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RenewSubscription.cs" />
+    <Compile Include="Unsubscribe.cs" />
     <Compile Include="Models\PullMessageResponse.cs" />
     <Compile Include="PullMessageRequest.cs" />
     <Compile Include="CreateSubscription.cs" />

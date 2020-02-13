@@ -11,7 +11,7 @@ using System.Collections.Generic;
  http://www.apache.org/licenses/LICENSE-2.0
  */
 
-namespace OnvifLib.Models
+namespace OnvifLib.Models.PullMessageResponse
 {
     [XmlRoot(ElementName = "ReplyTo", Namespace = "http://www.w3.org/2005/08/addressing")]
     public class ReplyTo
@@ -137,88 +137,7 @@ namespace OnvifLib.Models
         public Header Header { get; set; }
         [XmlElement(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
         public Body Body { get; set; }
-        [XmlAttribute(AttributeName = "SOAP-ENV", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string SOAPENV { get; set; }
-        [XmlAttribute(AttributeName = "SOAP-ENC", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string SOAPENC { get; set; }
-        [XmlAttribute(AttributeName = "xsi", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Xsi { get; set; }
-        [XmlAttribute(AttributeName = "xsd", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Xsd { get; set; }
-        [XmlAttribute(AttributeName = "wsa", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Wsa { get; set; }
-        [XmlAttribute(AttributeName = "wsdd", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Wsdd { get; set; }
-        [XmlAttribute(AttributeName = "chan", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Chan { get; set; }
-        [XmlAttribute(AttributeName = "wsa5", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Wsa5 { get; set; }
-        [XmlAttribute(AttributeName = "xmime", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Xmime { get; set; }
-        [XmlAttribute(AttributeName = "xop", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Xop { get; set; }
-        [XmlAttribute(AttributeName = "wsrfbf", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Wsrfbf { get; set; }
-        [XmlAttribute(AttributeName = "wstop", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Wstop { get; set; }
-        [XmlAttribute(AttributeName = "tt", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Tt { get; set; }
-        [XmlAttribute(AttributeName = "ns3", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Ns3 { get; set; }
-        [XmlAttribute(AttributeName = "wsrfr", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Wsrfr { get; set; }
-        [XmlAttribute(AttributeName = "ns1", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Ns1 { get; set; }
-        [XmlAttribute(AttributeName = "ns2", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Ns2 { get; set; }
-        [XmlAttribute(AttributeName = "ns4", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Ns4 { get; set; }
-        [XmlAttribute(AttributeName = "tad", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Tad { get; set; }
-        [XmlAttribute(AttributeName = "daae", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Daae { get; set; }
-        [XmlAttribute(AttributeName = "dare", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Dare { get; set; }
-        [XmlAttribute(AttributeName = "tan", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Tan { get; set; }
-        [XmlAttribute(AttributeName = "dn", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Dn { get; set; }
-        [XmlAttribute(AttributeName = "ter", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Ter { get; set; }
-        [XmlAttribute(AttributeName = "tds", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Tds { get; set; }
-        [XmlAttribute(AttributeName = "tev", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Tev { get; set; }
-        [XmlAttribute(AttributeName = "wsnt", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Wsnt { get; set; }
-        [XmlAttribute(AttributeName = "timg", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Timg { get; set; }
-        [XmlAttribute(AttributeName = "tls", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Tls { get; set; }
-        [XmlAttribute(AttributeName = "tmd", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Tmd { get; set; }
-        [XmlAttribute(AttributeName = "tptz", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Tptz { get; set; }
-        [XmlAttribute(AttributeName = "trc", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Trc { get; set; }
-        [XmlAttribute(AttributeName = "trp", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Trp { get; set; }
-        [XmlAttribute(AttributeName = "trt", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Trt { get; set; }
-        [XmlAttribute(AttributeName = "trv", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Trv { get; set; }
-        [XmlAttribute(AttributeName = "tse", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Tse { get; set; }
-        [XmlAttribute(AttributeName = "tns1", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Tns1 { get; set; }
-        [XmlAttribute(AttributeName = "tnshik", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Tnshik { get; set; }
-        [XmlAttribute(AttributeName = "xs", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Xs { get; set; }
-        [XmlAttribute(AttributeName = "wsse", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Wsse { get; set; }
-        [XmlAttribute(AttributeName = "wsu", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Wsu { get; set; }
+
     }
 
 }
