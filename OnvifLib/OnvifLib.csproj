@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Camera.cs" />
     <Compile Include="RenewSubscription.cs" />
     <Compile Include="Unsubscribe.cs" />
     <Compile Include="Models\PullMessageResponse.cs" />

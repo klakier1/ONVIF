@@ -38,9 +38,10 @@ namespace OnvifLib
 
     public class ProbeMatch
     {
-        Uri XAddrs;
-        String EndPointReference;
-        String Types;
+        public Uri XAddrs;
+        public String EndPointReference;
+        public String Types;
+
         public ProbeMatch()
         {
 
@@ -50,6 +51,11 @@ namespace OnvifLib
             XAddrs = xAddrs;
             EndPointReference = endPointReference;
             Types = types;
+        }
+
+        public override string ToString()
+        {
+            return $"{ XAddrs.ToString() } => { EndPointReference } => { Types }";
         }
     }
 }
