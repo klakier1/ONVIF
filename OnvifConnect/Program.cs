@@ -9,28 +9,53 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using OnvifLib;
-
+/*
+ *  TODO
+ *  -dodać model do renew subscrbtion response, i parser
+ *  -sprawdzac wszedzie czy status jest 200, jak nie to unsubscribe i od nowa subscribe
+ *  -sprawdzic czy w unsubscribe response jest cos do parsowania
+ *  
+ *  -wszystkie modele dac osobno
+ *  -porzadek zrobic w onvif lib
+ */ 
 namespace OnvifConnect
 {
     class Program
     {
+        private static readonly string _login = "admin";
+        private static readonly string _password = "Dwapiatka25";
+
+        private static string Login => _login;
+        private static string Password => _password;
+
         static void Main(string[] args)
         {
             CameraFinder cameraFinder = new CameraFinder();
             cameraFinder.CameraFoundEvent += CameraFinder_CameraFoundEvent;
+            cameraFinder.CameraUpgradeEvent += CameraFinder_CameraUpgradeEvent;
             cameraFinder.StartSearching();
 
+            Console.WriteLine("Press any key to exit");
             Console.ReadKey();
             cameraFinder.StopSearching();
+            cameraFinder.Cameras.ForEach(c => c.Cancel());
+        }
+
+        private static void CameraFinder_CameraUpgradeEvent(Camera cam)
+        {
+            Debug.WriteLine($"Program => CameraUpgrageEvent \t=> {cam.ProbeResult.ToString()}");
+            Console.WriteLine($"Program => CameraUpgrageEvent \t=> {cam.ProbeResult.ToString()}");
         }
 
         private static void CameraFinder_CameraFoundEvent(Camera cam)
         {
-            Debug.WriteLine(cam.ProbeResult.ToString());
+            Debug.WriteLine($"Program => CameraFoundEvent \t=> {cam.ProbeResult.ToString()}");
+            Console.WriteLine($"Program => CameraFoundEvent \t=> {cam.ProbeResult.ToString()}");
+
+            cam.Connect(Login, Password);
         }
 
-
-        static void test1()
+        static void Test1()
         {
             //string ip = "192.168.1.4";
             //string address = $"http://{ ip }/onvif/Events";
@@ -72,7 +97,7 @@ namespace OnvifConnect
             //Debug.Write(response.Content.ReadAsStringAsync().Result.ToString());
         }
 
-        static void test2()
+        static void Test2()
         {
 
             string ipAddress = "239.255.255.250";

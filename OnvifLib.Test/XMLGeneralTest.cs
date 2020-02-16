@@ -38,7 +38,7 @@ namespace OnvifLib.Test
         [DataRow(XMLPullMessagesResponseParser.TestString3, 1)]
         [DataRow(XMLPullMessagesResponseParser.TestString4, 0)]
         [DataTestMethod]
-        public void XMLPullMessagesResponseParse_TestData_returnMoreThenZeroElements(string xml, int expected)
+        public void XMLPullMessagesResponseParser_TestData_returnMoreThenZeroElements(string xml, int expected)
         {
             var parser = new XMLPullMessagesResponseParser();
             var actual = -1;
@@ -54,6 +54,22 @@ namespace OnvifLib.Test
             }
 
             Assert.AreEqual(expected, actual);
+        }
+
+        [DataRow(XMLCreateSubscriptionResponseParser.TestString1)]
+        [DataTestMethod]
+        public void XMLCreateSubscriptionResponseParser_TestData_returnSubscriptionReferenceNotNull(string xml)
+        {
+            var parser = new XMLCreateSubscriptionResponseParser();
+            var value = false;
+
+            var obj = parser.Parse(xml);
+            if (obj.Body.CreatePullPointSubscriptionResponse != null)
+            {
+                value = obj.Body.CreatePullPointSubscriptionResponse.SubscriptionReference != null;
+            }
+
+            Assert.IsNotNull(value);
         }
     }
 }

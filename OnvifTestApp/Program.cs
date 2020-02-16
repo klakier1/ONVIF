@@ -12,11 +12,18 @@ namespace OnvifTestApp
 {
     class Program
     {
-        static UsernameTokenGenerator Generator = new UsernameTokenGenerator("admin", "Dwapiatka25");
+        static readonly UsernameTokenGenerator Generator = new UsernameTokenGenerator("admin", "Dwapiatka25");
 
         static void Main(string[] args)
         {
-            SerializeXMLtest();
+            TestDateTimeParse();
+        }
+
+        static void TestDateTimeParse()
+        {
+            string time = "2020-02-16T19:38:28.278Z";
+            DateTime qwe = DateTime.Parse(time);
+            return;
         }
 
         static void XMLProbeMatchChecker()

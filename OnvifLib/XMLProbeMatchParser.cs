@@ -32,30 +32,31 @@ namespace OnvifLib
 
             return probeMatchList;
         }
-
-
     }
 
     public class ProbeMatch
     {
         public Uri XAddrs;
         public String EndPointReference;
-        public String Types;
+        public List<String> Types = new List<String>();
 
         public ProbeMatch()
         {
 
         }
-        public ProbeMatch(Uri xAddrs, String endPointReference, string types)
+        public ProbeMatch(Uri xAddrs, String endPointReference, String types)
         {
             XAddrs = xAddrs;
             EndPointReference = endPointReference;
-            Types = types;
+            Types.Add(types);
         }
 
         public override string ToString()
         {
-            return $"{ XAddrs.ToString() } => { EndPointReference } => { Types }";
+            String types = "";
+            foreach (string type in Types)
+                types += ($"{type} ");
+            return $"{ XAddrs.ToString() } => { EndPointReference } => { types }";
         }
     }
 }

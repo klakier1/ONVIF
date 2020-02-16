@@ -26,21 +26,22 @@ namespace OnvifLib
             var time = xmlUTCDateTime.Element(NameSpaces.tt + "Time");
             var date = xmlUTCDateTime.Element(NameSpaces.tt + "Date");
 
-            var hour = time.Element(NameSpaces.tt + "Hour").Value;
-            var minute = time.Element(NameSpaces.tt + "Minute").Value;
-            var second = time.Element(NameSpaces.tt + "Second").Value;
+            var hour = Int32.Parse(time.Element(NameSpaces.tt + "Hour").Value);
+            var minute = Int32.Parse(time.Element(NameSpaces.tt + "Minute").Value);
+            var second = Int32.Parse(time.Element(NameSpaces.tt + "Second").Value);
 
-            var year = date.Element(NameSpaces.tt + "Year").Value;
-            var month = date.Element(NameSpaces.tt + "Month").Value;
-            var day = date.Element(NameSpaces.tt + "Day").Value;
+            var year = Int32.Parse(date.Element(NameSpaces.tt + "Year").Value);
+            var month = Int32.Parse(date.Element(NameSpaces.tt + "Month").Value);
+            var day = Int32.Parse(date.Element(NameSpaces.tt + "Day").Value);
 
-            return new DateTime(
-                Int32.Parse(year),
-                Int32.Parse(month),
-                Int32.Parse(day),
-                Int32.Parse(hour),
-                Int32.Parse(minute),
-                Int32.Parse(second));
+            if (hour < 0)
+            {
+                var dt = new DateTime(year, month, day, 0, minute, second);
+                dt = dt.AddHours(hour);
+                return dt;
+            }
+
+            return new DateTime(year, month, day, hour, minute, second);
         }
 
         public static XElement RemoveAllNamespaces(XElement e)
