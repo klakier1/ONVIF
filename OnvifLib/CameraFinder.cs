@@ -147,7 +147,7 @@ namespace OnvifLib
                     }
                     else
                     {
-                        Debug.WriteLine($"CameraFinder => Device is already on the list: {device.ProbeResult.ToString()}");
+                        //Debug.WriteLine($"CameraFinder => Device is already on the list: {device.ProbeResult.ToString()}");
                     }
                 }
             }

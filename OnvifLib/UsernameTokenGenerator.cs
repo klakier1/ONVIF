@@ -10,6 +10,7 @@ namespace OnvifLib
         string _login;
         string _pass;
         byte[] _nounce = new Byte[24];
+        byte[] _tag = new Byte[] { 0x28, 0xb0, 0x0a, 0x20, 0x44 }; //as begin of nonce, then I know that its my packet
 
         public string Pass { get => _pass; set => _pass = value; }
         private byte[] Nounce { get => _nounce; set => _nounce = value; }
@@ -20,6 +21,7 @@ namespace OnvifLib
             this.Login = login;
             this.Pass = pass;
             new Random().NextBytes(_nounce); //generate nounce
+            Buffer.BlockCopy(_tag, 0, Nounce, 0, _tag.Length);
         }
 
 

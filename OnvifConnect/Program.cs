@@ -38,14 +38,14 @@ namespace OnvifConnect
 
         private static void CameraFinder_CameraUpgradeEvent(Camera cam)
         {
-            Debug.WriteLine($"Program => CameraUpgrageEvent \t=> {cam.ProbeResult.ToString()}");
-            Console.WriteLine($"Program => CameraUpgrageEvent \t=> {cam.ProbeResult.ToString()}");
+            //Debug.WriteLine($"Program => CameraUpgrageEvent \t=> {cam.ProbeResult.ToString()}");
+            //Console.WriteLine($"Program => CameraUpgrageEvent \t=> {cam.ProbeResult.ToString()}");
         }
 
         private static void CameraFinder_CameraFoundEvent(Camera cam)
         {
-            Debug.WriteLine($"Program => CameraFoundEvent \t=> {cam.ProbeResult.ToString()}");
-            Console.WriteLine($"Program => CameraFoundEvent \t=> {cam.ProbeResult.ToString()}");
+            //Debug.WriteLine($"Program => CameraFoundEvent \t=> {cam.ProbeResult.ToString()}");
+            //Console.WriteLine($"Program => CameraFoundEvent \t=> {cam.ProbeResult.ToString()}");
 
             cam.Connect(Login, Password);
         }
