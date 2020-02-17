@@ -4,6 +4,7 @@ using System.Text;
 using System.Xml.Linq;
 using System.Linq;
 using System.Diagnostics;
+using OnvifLib.Models.NameSpaces;
 
 namespace OnvifLib
 {

@@ -71,5 +71,18 @@ namespace OnvifLib.Test
 
             Assert.IsNotNull(value);
         }
+
+        [DataRow(XMLRenewResponseParser.TestString1)]
+        [DataRow(XMLRenewResponseParser.TestString2)]
+        [DataTestMethod]
+        public void XMLRenewResponseParser_TestData_returnValidDateTime(string xml)
+        {
+            var parser = new XMLRenewResponseParser();
+            var obj = parser.Parse(xml);
+
+            DateTime value = obj.Body.RenewResponse.TerminationTimeDT;
+
+            Assert.IsInstanceOfType(value, typeof(DateTime));
+        }
     }
 }

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Linq;
 
-namespace OnvifLib
+namespace OnvifLib.Models.NameSpaces
+
 {
     public static class NameSpaces
     {

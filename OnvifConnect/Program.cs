@@ -11,12 +11,7 @@ using System.Threading.Tasks;
 using OnvifLib;
 /*
  *  TODO
- *  -dodać model do renew subscrbtion response, i parser
  *  -sprawdzac wszedzie czy status jest 200, jak nie to unsubscribe i od nowa subscribe
- *  -sprawdzic czy w unsubscribe response jest cos do parsowania
- *  
- *  -wszystkie modele dac osobno
- *  -porzadek zrobic w onvif lib
  */ 
 namespace OnvifConnect
 {

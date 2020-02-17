@@ -3,11 +3,11 @@
 
  http://www.apache.org/licenses/LICENSE-2.0
  */
+using System;
 using System.Xml.Serialization;
 using System.Collections.Generic;
-using System;
 
-namespace OnvifLib.Models.CreateSubscriptionResponse
+namespace OnvifLib.Models.RenewResponse
 {
     [XmlRoot(ElementName = "ReplyTo", Namespace = "http://www.w3.org/2005/08/addressing")]
     public class ReplyTo
@@ -49,48 +49,16 @@ namespace OnvifLib.Models.CreateSubscriptionResponse
         public Action Action { get; set; }
     }
 
-    [XmlRoot(ElementName = "SubscriptionReference", Namespace = "http://www.onvif.org/ver10/events/wsdl")]
-    public class SubscriptionReference
+    [XmlRoot(ElementName = "RenewResponse", Namespace = "http://docs.oasis-open.org/wsn/b-2")]
+    public class RenewResponse
     {
-        private string _address;
-
-        [XmlIgnore]
-        public Uri Uri { get; set; }
-
-        [XmlElement(ElementName = "Address", Namespace = "http://www.w3.org/2005/08/addressing")]
-        public string Address
-        {
-            get { return _address; }
-            set
-            {
-                _address = value;
-                Uri = new Uri(_address);
-            }
-        }
-    }
-
-    [XmlRoot(ElementName = "CreatePullPointSubscriptionResponse", Namespace = "http://www.onvif.org/ver10/events/wsdl")]
-    public class CreatePullPointSubscriptionResponse
-    {
-        private string _currentTime;
         private string _terminationTime;
+        private string _currentTime;
 
         [XmlIgnore]
         public DateTime CurrentTimeDT;
         [XmlIgnore]
         public DateTime TerminationTimeDT;
-        [XmlElement(ElementName = "SubscriptionReference", Namespace = "http://www.onvif.org/ver10/events/wsdl")]
-        public SubscriptionReference SubscriptionReference { get; set; }
-        [XmlElement(ElementName = "CurrentTime", Namespace = "http://docs.oasis-open.org/wsn/b-2")]
-        public string CurrentTime
-        {
-            get { return _currentTime; }
-            set
-            {
-                _currentTime = value;
-                CurrentTimeDT = DateTime.Parse(_currentTime);
-            }
-        }
         [XmlElement(ElementName = "TerminationTime", Namespace = "http://docs.oasis-open.org/wsn/b-2")]
         public string TerminationTime
         {
@@ -101,13 +69,23 @@ namespace OnvifLib.Models.CreateSubscriptionResponse
                 TerminationTimeDT = DateTime.Parse(_terminationTime);
             }
         }
+        [XmlElement(ElementName = "CurrentTime", Namespace = "http://docs.oasis-open.org/wsn/b-2")]
+        public string CurrentTime
+        {
+            get { return _currentTime; }
+            set
+            {
+                _currentTime = value;
+                CurrentTimeDT = DateTime.Parse(_currentTime);
+            }
+        }
     }
 
     [XmlRoot(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
     public class Body
     {
-        [XmlElement(ElementName = "CreatePullPointSubscriptionResponse", Namespace = "http://www.onvif.org/ver10/events/wsdl")]
-        public CreatePullPointSubscriptionResponse CreatePullPointSubscriptionResponse { get; set; }
+        [XmlElement(ElementName = "RenewResponse", Namespace = "http://docs.oasis-open.org/wsn/b-2")]
+        public RenewResponse RenewResponse { get; set; }
     }
 
     [XmlRoot(ElementName = "Envelope", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
@@ -120,4 +98,3 @@ namespace OnvifLib.Models.CreateSubscriptionResponse
     }
 
 }
-
