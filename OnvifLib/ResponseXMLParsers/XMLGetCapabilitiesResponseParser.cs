@@ -34,10 +34,10 @@ namespace OnvifLib
                 })
                 .ToList();
 
-            foreach (var cap in capabilities)
-            {
-                Debug.WriteLine(cap.ToString());
-            }
+            //foreach (var cap in capabilities)
+            //{
+            //    Debug.WriteLine(cap.ToString());
+            //}
 
             return capabilities;
         }

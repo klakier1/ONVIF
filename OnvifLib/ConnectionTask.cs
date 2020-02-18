@@ -33,16 +33,17 @@ namespace OnvifLib
             HttpClient.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
             HttpClient.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("deflate"));
             HttpClient.DefaultRequestHeaders.ExpectContinue = false;
+            HttpClient.Timeout = new TimeSpan(0, 0, 30); // 30 seconds
             Generator = new UsernameTokenGenerator(login, password);
             _cancellationTokenSource = new CancellationTokenSource();
         }
         public void Connect()
         {
-            _task = new Task(() =>
+            _task = new Task(async () =>
                 {
                     try
                     {
-                        MainTask();
+                        await MainTask();
                     }
                     catch (Exception e)
                     {
@@ -61,7 +62,7 @@ namespace OnvifLib
             _cancellationTokenSource.Cancel();
         }
 
-        public async void MainTask()
+        public async Task MainTask()
         {
             var token = _cancellationTokenSource.Token;
 
@@ -89,33 +90,49 @@ namespace OnvifLib
             if (eventCapability == null)
                 return;
 
+            int subscriptionCounter = 0;
+
             for (; ; )
             {
                 //createSubscription
                 success = await CreateSubscription(token, Cam);
-                if (!success) return;
+                if (!success)
+                    return;
 
-                Debug.WriteLine($"Subscription { Cam.Subscription.Body.CreatePullPointSubscriptionResponse.CurrentTimeDT.ToString() } >> { Cam.Subscription.Body.CreatePullPointSubscriptionResponse.TerminationTimeDT.ToString() }");
+                string currentTime = Cam.Subscription.Body.CreatePullPointSubscriptionResponse.CurrentTimeDT.ToString();
+                string terminationTime = Cam.Subscription.Body.CreatePullPointSubscriptionResponse.TerminationTimeDT.ToString();
+                string address = Cam.Subscription.Body.CreatePullPointSubscriptionResponse.SubscriptionReference.Address;
+                Console.WriteLine($"Subscription { currentTime } >> { terminationTime } >> { address }");
+
+                subscriptionCounter++; //increaa counter, count attemps to make subscription
+                Debug.WriteLine($"Subscription counter { subscriptionCounter }");
+                if (subscriptionCounter > 3) return; //after 3 fails, cancel task
 
                 //pullMessageRequest
                 for (; ; )
                 {
-                    if (token.IsCancellationRequested) return;
+                    if (token.IsCancellationRequested)
+                        return;
 
                     success = await PullMessageRequest(token, Cam);
                     if (success)
                     {
+                        subscriptionCounter = 0; //reset counter , if pullMessageResponse was ok reset counter
+
                         Models.PullMessageResponse.NotificationMessage msg = Cam.PullResponse.Body.PullMessagesResponse.NotificationMessage;
                         Models.PullMessageResponse.SimpleItem item = msg.Message2.Message.Data.SimpleItem.First();
 
-                        Console.WriteLine(msg.Topic.Text);
-                        Console.WriteLine($"{item.Name} => {item.Value}");
+                        //Console.WriteLine(msg.Topic.Text);
+                        //Console.WriteLine($"{item.Name} => {item.Value}");
 
-                        if (!await RenewRequest(token, Cam)) return;
+                        success = await RenewRequest(token, Cam);
                     }
-                    else
+
+                    if (!success)
                     {
                         await UnsubscribeRequest(token, Cam);
+                        Console.WriteLine($"Unsubscribe >> { address }");
+                        await Task.Delay(1000);
                         break;
                     }
                 }
@@ -179,16 +196,16 @@ namespace OnvifLib
 
         async Task<bool> PullMessageRequest(CancellationToken token, Camera cam)
         {
-            var pullResponseParser = new XMLPullMessagesResponseParser();
             var xml = new PullMessageRequest(Generator, cam.Subscription.Body.CreatePullPointSubscriptionResponse.SubscriptionReference.Uri.AbsoluteUri).ToXML();
             var content = new StringContent(xml, Encoding.UTF8, "application/soap+xml");
             var response = await HttpClient.PostAsync(cam.Subscription.Body.CreatePullPointSubscriptionResponse.SubscriptionReference.Uri.AbsoluteUri, content, token);
             if (response.StatusCode != HttpStatusCode.OK)
             {
-                Debug.WriteLine($"Response Error >>>>>>>>>>>> {DateTime.Now} >> {response.StatusCode} >> {response.Content.ToString()}");
+                Console.WriteLine($"Response Error Pull Message>> {DateTime.Now} >> {response.StatusCode}");
                 return false;
             }
             var responseXml = await response.Content.ReadAsStringAsync();
+            var pullResponseParser = new XMLPullMessagesResponseParser();
             cam.PullResponse = pullResponseParser.Parse(responseXml);
 
             return true;
@@ -207,7 +224,11 @@ namespace OnvifLib
             var xml = new RenewSubscription(Generator, cam.Subscription.Body.CreatePullPointSubscriptionResponse.SubscriptionReference.Uri.AbsoluteUri).ToXML(); ;
             var content = new StringContent(xml, Encoding.UTF8, "application/soap+xml");
             var response = await HttpClient.PostAsync(cam.Subscription.Body.CreatePullPointSubscriptionResponse.SubscriptionReference.Uri.AbsoluteUri, content, token);
-            if (!response.IsSuccessStatusCode) return false;
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                Console.WriteLine($"Response Error Renew >> {DateTime.Now} >> {response.StatusCode}");
+                return false;
+            }
             var responseXml = await response.Content.ReadAsStringAsync();
             var renewResponse = new XMLRenewResponseParser().Parse(responseXml);
             cam.RenewResponse = renewResponse;

@@ -136,6 +136,7 @@ namespace OnvifLib
                 }) == 0) //if contains device with this XAddrs
                 {
                     Cameras.Add(device);
+                    Debug.WriteLine($"CameraFinder => New Device: {device.ProbeResult.ToString()}");
                     CameraFoundEvent?.Invoke(device);
                 }
                 else
@@ -143,11 +144,12 @@ namespace OnvifLib
                     if (!temp.ProbeResult.Types.Contains(device.ProbeResult.Types.First()))
                     {
                         temp.ProbeResult.Types.Add(device.ProbeResult.Types.First());
+                        Debug.WriteLine($"CameraFinder => Device is upgrade: {device.ProbeResult.ToString()}");
                         CameraUpgradeEvent?.Invoke(temp);
                     }
                     else
                     {
-                        //Debug.WriteLine($"CameraFinder => Device is already on the list: {device.ProbeResult.ToString()}");
+                        Debug.WriteLine($"CameraFinder => Device is already on the list: {device.ProbeResult.ToString()}");
                     }
                 }
             }

@@ -55,6 +55,7 @@ namespace OnvifConnect
 
         private static void Cam_CameraDisconnected(Camera cam)
         {
+            Console.WriteLine($"Camera deleted from list { cam.ProbeResult.ToString() }");
             cameraFinder.Cameras.Remove(cam);
         }
 
