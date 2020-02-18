@@ -25,11 +25,22 @@ namespace OnvifLib
         public Models.PullMessageResponse.Envelope PullResponse { get => _pullResponse; set => _pullResponse = value; }
         public Models.RenewResponse.Envelope RenewResponse { get => _renewResponse; set => _renewResponse = value; }
 
+        public delegate void CameraStateChanged(Camera cam);
+        public event CameraStateChanged CameraDisconnected;
+
         public void Connect(string login, string pass)
         {
             Connection = new ConnectionTask(this, login, pass);
+            Connection.Disconnected += Connection_Disconnected;
             Connection.Connect();
         }
+
+        private void Connection_Disconnected(Camera cam)
+        {
+            //Pass it
+            CameraDisconnected?.Invoke(this);
+        }
+
         public void Cancel()
         {
             Connection.Cancel();

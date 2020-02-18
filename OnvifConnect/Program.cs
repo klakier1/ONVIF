@@ -23,9 +23,11 @@ namespace OnvifConnect
         private static string Login => _login;
         private static string Password => _password;
 
+        private static CameraFinder cameraFinder;
+
         static void Main(string[] args)
         {
-            CameraFinder cameraFinder = new CameraFinder();
+            cameraFinder = new CameraFinder();
             cameraFinder.CameraFoundEvent += CameraFinder_CameraFoundEvent;
             cameraFinder.CameraUpgradeEvent += CameraFinder_CameraUpgradeEvent;
             cameraFinder.StartSearching();
@@ -48,6 +50,12 @@ namespace OnvifConnect
             //Console.WriteLine($"Program => CameraFoundEvent \t=> {cam.ProbeResult.ToString()}");
 
             cam.Connect(Login, Password);
+            cam.CameraDisconnected += Cam_CameraDisconnected;
+        }
+
+        private static void Cam_CameraDisconnected(Camera cam)
+        {
+            cameraFinder.Cameras.Remove(cam);
         }
 
         static void Test1()

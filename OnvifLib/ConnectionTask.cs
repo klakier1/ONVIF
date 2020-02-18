@@ -23,6 +23,8 @@ namespace OnvifLib
         public HttpClient HttpClient { get => _httpClient; set => _httpClient = value; }
         public UsernameTokenGenerator Generator { get => _generator; set => _generator = value; }
 
+        public delegate void ConnectionStateChanged(Camera cam);
+        public event ConnectionStateChanged Disconnected;
 
         public ConnectionTask(Camera cam, string login, string password)
         {
@@ -45,6 +47,11 @@ namespace OnvifLib
                     catch (Exception e)
                     {
                         Debug.WriteLine(e.Message);
+                    }
+                    finally
+                    {
+                        //delete camera from the list
+                        Disconnected?.Invoke(Cam);
                     }
                 });
             _task.Start();
@@ -74,36 +81,43 @@ namespace OnvifLib
             Console.WriteLine($"New Time { cameraTime.ToString() }");
 
             //getCapabilities
-            Cam.Capability = await GetCapabilities(token);
+            success = await GetCapabilities(token, Cam);
+            if (!success) return;
 
             //check if has event capability
             var eventCapability = Cam.Capability.Where(q => q.Name.LocalName.Equals("Events")).FirstOrDefault();
             if (eventCapability == null)
                 return;
 
-            //createSubscription
-            success = await CreateSubscription(token, Cam);
-            if (!success) return;
-
-            Debug.WriteLine($"Subscription { Cam.Subscription.Body.CreatePullPointSubscriptionResponse.CurrentTimeDT.ToString() } >> { Cam.Subscription.Body.CreatePullPointSubscriptionResponse.TerminationTimeDT.ToString() }");
-
-            //pullMessageRequest
             for (; ; )
             {
+                //createSubscription
+                success = await CreateSubscription(token, Cam);
+                if (!success) return;
 
-                success = await PullMessageRequest(token, Cam);
-                if (success)
-                {
-                    Models.PullMessageResponse.NotificationMessage msg = Cam.PullResponse.Body.PullMessagesResponse.NotificationMessage;
-                    Models.PullMessageResponse.SimpleItem item = msg.Message2.Message.Data.SimpleItem.First();
+                Debug.WriteLine($"Subscription { Cam.Subscription.Body.CreatePullPointSubscriptionResponse.CurrentTimeDT.ToString() } >> { Cam.Subscription.Body.CreatePullPointSubscriptionResponse.TerminationTimeDT.ToString() }");
 
-                    Console.WriteLine(msg.Topic.Text);
-                    Console.WriteLine($"{item.Name} => {item.Value}");
-                }
-                else
+                //pullMessageRequest
+                for (; ; )
                 {
-                    await UnsubscribeRequest(token, Cam);
-                    return;
+                    if (token.IsCancellationRequested) return;
+
+                    success = await PullMessageRequest(token, Cam);
+                    if (success)
+                    {
+                        Models.PullMessageResponse.NotificationMessage msg = Cam.PullResponse.Body.PullMessagesResponse.NotificationMessage;
+                        Models.PullMessageResponse.SimpleItem item = msg.Message2.Message.Data.SimpleItem.First();
+
+                        Console.WriteLine(msg.Topic.Text);
+                        Console.WriteLine($"{item.Name} => {item.Value}");
+
+                        if (!await RenewRequest(token, Cam)) return;
+                    }
+                    else
+                    {
+                        await UnsubscribeRequest(token, Cam);
+                        break;
+                    }
                 }
             }
         }
@@ -128,15 +142,17 @@ namespace OnvifLib
             return response.IsSuccessStatusCode;
         }
 
-        async Task<List<Capability>> GetCapabilities(CancellationToken token)
+        async Task<bool> GetCapabilities(CancellationToken token, Camera cam)
         {
             var xml = new GetCapabilities(Generator).ToXML();
             var content = new StringContent(xml, Encoding.UTF8, "application/soap+xml");
-            var response = await HttpClient.PostAsync(Cam.ProbeResult.XAddrs, content, token);
+            var response = await HttpClient.PostAsync(cam.ProbeResult.XAddrs, content, token);
+            if (!response.IsSuccessStatusCode) return false;
             var responseXml = await response.Content.ReadAsStringAsync();
             var capabilitiesParser = new XMLGetCapabilitiesResponseParser();
             var capabilities = capabilitiesParser.Parse(responseXml);
-            return capabilities;
+            cam.Capability = capabilities;
+            return true;
         }
 
         async Task<bool> CreateSubscription(CancellationToken token, Camera cam)
@@ -180,7 +196,7 @@ namespace OnvifLib
 
         async Task<bool> UnsubscribeRequest(CancellationToken token, Camera cam)
         {
-            var xml = new Unsubscribe(Generator, cam.Subscription.Body.CreatePullPointSubscriptionResponse.SubscriptionReference.Uri.AbsoluteUri).ToXML();;
+            var xml = new Unsubscribe(Generator, cam.Subscription.Body.CreatePullPointSubscriptionResponse.SubscriptionReference.Uri.AbsoluteUri).ToXML(); ;
             var content = new StringContent(xml, Encoding.UTF8, "application/soap+xml");
             var response = await HttpClient.PostAsync(cam.Subscription.Body.CreatePullPointSubscriptionResponse.SubscriptionReference.Uri.AbsoluteUri, content, token);
             return response.IsSuccessStatusCode;
